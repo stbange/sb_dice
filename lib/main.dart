@@ -13,20 +13,11 @@ class DiceApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: "Stephan's simple dice",
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const DicePage(title: 'Flutter Demo Home Page'),
+      home: const DicePage(title: "Stephan's simple dice"),
     );
   }
 }
@@ -49,15 +40,15 @@ class _DicePageState extends State<DicePage> {
 
   void _updateDice(int eyes, int number) {
     setState(() {
-      if(eyes > 0) {
+      if (eyes > 0) {
         _eyes = eyes;
       }
-      if(number > 0) {
+      if (number > 0) {
         _number = number;
       }
       _results.clear();
       _sum = 0;
-      for(int c=0; c<_number; c++) {
+      for (int c = 0; c < _number; c++) {
         int current = _random.nextInt(_eyes) + 1;
         _results.add(current);
         _sum += current;
@@ -75,34 +66,45 @@ class _DicePageState extends State<DicePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Row(children: [
-              const Text('Eyes: '),
-              NumberPicker(minValue: 1, maxValue: 100, value: _eyes, onChanged: (value) => _updateDice(value, _number))
-            ],
-              mainAxisAlignment: MainAxisAlignment.center,
+            Container(
+              child: Row(
+                children: [
+                  const Text('Eyes: '),
+                  NumberPicker(
+                      minValue: 1,
+                      maxValue: 100,
+                      value: _eyes,
+                      onChanged: (value) => _updateDice(value, _number))
+                ],
+                mainAxisAlignment: MainAxisAlignment.center,
+              ),
+              color: Colors.grey[300],
             ),
-            Row(children: [
-              const Text( 'Number: '),
-              NumberPicker(minValue: 1, maxValue: 100, value: _number, onChanged: (value) => _updateDice(_eyes, value))
-            ],
-              mainAxisAlignment: MainAxisAlignment.center,
+            Container(
+              child: Row(
+                children: [
+                  const Text('Number: '),
+                  NumberPicker(
+                      minValue: 1,
+                      maxValue: 100,
+                      value: _number,
+                      textStyle: const TextStyle(
+                          fontSize: 10, fontWeight: FontWeight.normal),
+                      onChanged: (value) => _updateDice(_eyes, value))
+                ],
+                mainAxisAlignment: MainAxisAlignment.center,
+              ),
+              color: Colors.grey[200],
             ),
             ElevatedButton(
               onPressed: () => _updateDice(_eyes, _number),
               child: const Text('Roll'),
             ),
-            Row(children: [
-              const Text('Sum: '),
-              Text('$_sum'),
-            ],
-              mainAxisAlignment: MainAxisAlignment.center,
+            Text(
+              'Sum: $_sum',
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            Row(children: [
-              const Text('Results: '),
-              Text(_results.join(', '))
-            ],
-              mainAxisAlignment: MainAxisAlignment.center,
-            ),
+            Text("Results: ${_results.join(', ')}"),
           ],
         ),
       ),
