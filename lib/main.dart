@@ -69,32 +69,24 @@ class _DicePageState extends State<DicePage> {
             Container(
               child: Row(
                 children: [
-                  const Text('Eyes: '),
-                  NumberPicker(
-                      minValue: 1,
-                      maxValue: 100,
-                      value: _eyes,
-                      onChanged: (value) => _updateDice(value, _number))
-                ],
-                mainAxisAlignment: MainAxisAlignment.center,
-              ),
-              color: Colors.grey[300],
-            ),
-            Container(
-              child: Row(
-                children: [
-                  const Text('Number: '),
                   NumberPicker(
                       minValue: 1,
                       maxValue: 100,
                       value: _number,
                       textStyle: const TextStyle(
                           fontSize: 10, fontWeight: FontWeight.normal),
-                      onChanged: (value) => _updateDice(_eyes, value))
+                      onChanged: (value) => _updateDice(_eyes, value)),
+                  const Text('D',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),),
+                  NumberPicker(
+                    minValue: 1,
+                    maxValue: 100,
+                    value: _eyes,
+                    onChanged: (value) => _updateDice(value, _number),
+                  ),
                 ],
                 mainAxisAlignment: MainAxisAlignment.center,
               ),
-              color: Colors.grey[200],
+              color: Colors.grey[300],
             ),
             ElevatedButton(
               onPressed: () => _updateDice(_eyes, _number),
